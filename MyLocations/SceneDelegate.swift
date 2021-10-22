@@ -17,11 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
                 window = UIWindow(frame: UIScreen.main.bounds)
                 let tabBarController =  MainTabBar ()
-        //        tabBarController.selectedIndex = 2
                 window?.rootViewController = tabBarController
                 window?.makeKeyAndVisible()
                 window?.windowScene = windowScene
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
