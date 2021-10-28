@@ -58,7 +58,6 @@ class CurrentLocationViewController: UIViewController {
     private let getMyLocationButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Get My Location", for: .normal)
-        //        button.setTitleColor(.black, for: .normal)
         return button
     }()
     
@@ -299,6 +298,7 @@ extension CurrentLocationViewController{
         
         //MARK:- TARGETS
         getMyLocationButton.addTarget(self, action: #selector(getLocationPressed), for: .touchUpInside)
+        tagLocationButton.addTarget(self, action: #selector(tagLocationTapped), for: .touchUpInside)
     }
     
     @objc func getLocationPressed(){
@@ -319,6 +319,11 @@ extension CurrentLocationViewController{
           startLocationManager()
         }
         updateLabels()
+    }
+    
+    @objc func tagLocationTapped(){
+        let vc = LocationDetailsViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func configureGetButon(){
