@@ -18,8 +18,9 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     var tagTableView = UITableView()
     
     private let descriptionTextView: UITextView = {
-       let textView = UITextView()
+       let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 90, height: 20))
         textView.font = UIFont.systemFont(ofSize: 20)
+        textView.backgroundColor = .blue
        return textView
     }()
     
@@ -77,9 +78,21 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tagTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = cellArray[indexPath.section].title[indexPath.row]
-        return cell
+        if (indexPath.section == 0){
+            let cell = tagTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            return cell
+        }else if (indexPath.section == 1){
+            let cell = tagTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            return cell
+        }else{
+            let cell = tagTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel?.text = cellArray[indexPath.section].title[indexPath.row]
+            cell.detailTextLabel?.text = cellArray[indexPath.section].title[indexPath.row]
+            let detailViewLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+            detailViewLabel.text = "DetailDetail"
+            cell.accessoryView = detailViewLabel
+            return cell
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -100,18 +113,18 @@ extension LocationDetailsViewController{
         tagTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         view.addSubview(tagTableView)
-        view.addSubview(descriptionTextView)
+//        view.addSubview(descriptionTextView)
         descriptionTextView.backgroundColor = .lightGray
         
-        descriptionTextView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.height.equalTo(50)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-        }
+//        descriptionTextView.snp.makeConstraints { make in
+//            make.width.equalToSuperview()
+//            make.centerX.equalToSuperview()
+//            make.height.equalTo(50)
+//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+//        }
         
         tagTableView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionTextView.snp.bottom)
+            make.top.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
