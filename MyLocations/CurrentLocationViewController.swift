@@ -146,7 +146,7 @@ extension CurrentLocationViewController: CLLocationManagerDelegate{
         if newLocation.horizontalAccuracy < 0{
             return
         }
-         
+        
         // New section #1
         var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
         if let location = location {
@@ -312,18 +312,18 @@ extension CurrentLocationViewController{
             return
         }
         if updatingLocation {
-          stopLocationManager()
+            stopLocationManager()
         } else {
-          location = nil
-          lastLocationError = nil
-          startLocationManager()
+            location = nil
+            lastLocationError = nil
+            startLocationManager()
         }
         updateLabels()
     }
     
     @objc func tagLocationTapped(){
         let vc = LocationDetailsViewController()
-        vc.coordinate = location!.coordinate
+        vc.coordinate = location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         vc.placemark = placemark
         navigationController?.pushViewController(vc, animated: true)
     }

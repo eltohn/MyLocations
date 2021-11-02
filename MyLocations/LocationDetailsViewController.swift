@@ -17,57 +17,67 @@ private let dateFormatter: DateFormatter = {
 }()
 
 struct CellBlueprint {
-    let title: [String]
-    let numberOfCells: Int
+    let titles: [String]
 }
 
 class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var tagTableView = UITableView()
+
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        return textView
+    }()
     
     var detailViewLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
     var locationPlacemarkLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
     var longitudeLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
     var latitudeLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
     var timeLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    
-    let cellArray = [CellBlueprint(title: ["1","1"], numberOfCells: 2),
-                     CellBlueprint(title: ["Category","","Add Photo",""], numberOfCells: 4),
-                     CellBlueprint(title: ["Latitude","Longtitude","Address","Date"], numberOfCells: 4)]
+
+    let cellArray = [CellBlueprint(titles: ["Description",""]),
+                     CellBlueprint(titles: ["Category","","Add Photo",""]),
+                     CellBlueprint(titles: ["Latitude","Longtitude","Address","Date"])]
     
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
     
+    //MARK:- CATEGORYController PROPERTIES
+    var categoryName = "No Category"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tagTableView.delegate = self
         tagTableView.dataSource = self
+        
+        detailViewLabel.text = categoryName
+        
         setupUI()
     }
     
@@ -86,29 +96,27 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         cell.selectionStyle = .none
         
         if (indexPath.section == 0){
-            if indexPath.row == 0{
-                cell.textLabel?.text = "Description"
-            }else{
-                let descriptionTextView = UITextView(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height))
+            cell.textLabel?.text = cellArray[indexPath.section].titles[indexPath.row]
+            if indexPath.row == 1{
                 descriptionTextView.font = UIFont.systemFont(ofSize: 20)
                 cell.contentView.addSubview(descriptionTextView)
+                descrTextViewConstraint(descriptionTextView)
             }
             return cell
         }else if (indexPath.section == 1){
             if indexPath.row == 0{
-                cell.textLabel?.text = cellArray[indexPath.section].title[indexPath.row]
+                cell.textLabel?.text = cellArray[indexPath.section].titles[indexPath.row]
                 cell.contentView.addSubview(detailViewLabel)
-                detailViewLabel.text = "BookstoreVVV"
                 detailViewLabel.textAlignment = .center
                 cellDetailLabelConstraint(detailViewLabel)
                 cell.accessoryType = .disclosureIndicator
             }else if indexPath.row == 2 {
-                cell.textLabel?.text = cellArray[indexPath.section].title[indexPath.row]
+                cell.textLabel?.text = cellArray[indexPath.section].titles[indexPath.row]
                 cell.accessoryType = .disclosureIndicator
             }
             return cell
         }else{
-            cell.textLabel?.text = cellArray[indexPath.section].title[indexPath.row]
+            cell.textLabel?.text = cellArray[indexPath.section].titles[indexPath.row]
             
             if indexPath.row == 0{
                 cell.contentView.addSubview(latitudeLabel)
@@ -121,7 +129,11 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
             }else if indexPath.row == 2{
                 cell.contentView.addSubview(locationPlacemarkLabel)
                 cellDetailLabelConstraint(locationPlacemarkLabel)
-                locationPlacemarkLabel.text = String.placemarkToString(from: placemark!)
+                if let placemark = placemark{
+                    locationPlacemarkLabel.text = String.placemarkToString(from: placemark)
+                }else{
+                    locationPlacemarkLabel.text = "Address not found"
+                }
             }else{
                 cell.contentView.addSubview(timeLabel)
                 cellDetailLabelConstraint(timeLabel)
@@ -148,7 +160,25 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellArray[section].numberOfCells
+        return cellArray[section].titles.count
+    }
+}
+
+
+extension LocationDetailsViewController{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            descriptionTextView.becomeFirstResponder()
+          }
+        
+        if indexPath.section == 1 && indexPath.row == 0{
+            let vc = CategoryPickerViewController()
+            vc.modalPresentationStyle = .currentContext
+            vc.selectedCategoryName = categoryName
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -165,10 +195,22 @@ extension LocationDetailsViewController{
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
+        let gestureRegognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        gestureRegognizer.cancelsTouchesInView = false
+        tagTableView.addGestureRecognizer(gestureRegognizer)
+    }
+    
+    @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer){
+        let point = gestureRecognizer.location(in: tagTableView)
+        let indexPath = tagTableView.indexPathForRow(at: point)
+          if indexPath != nil && indexPath!.section == 0 &&
+          indexPath!.row == 0 {
+        return
+        }
+          descriptionTextView.resignFirstResponder()
     }
 }
-
-
 
 extension LocationDetailsViewController{
     func cellDetailLabelConstraint(_ label: UILabel){
@@ -180,7 +222,19 @@ extension LocationDetailsViewController{
         }
     }
     
+    func descrTextViewConstraint(_ textView: UITextView){
+        textView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     func format(date: Date) ->String{
         return dateFormatter.string(from: date)
+    }
+}
+
+extension LocationDetailsViewController: SelectCategory {
+    func didSelecctCategory(category: String) {
+        detailViewLabel.text = category
     }
 }
