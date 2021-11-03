@@ -199,6 +199,26 @@ extension LocationDetailsViewController{
         let gestureRegognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         gestureRegognizer.cancelsTouchesInView = false
         tagTableView.addGestureRecognizer(gestureRegognizer)
+        
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(saveButtonPressed))
+        
+    }
+    
+    @objc func cancelButtonPressed(){
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func saveButtonPressed(){
+        guard let mainView = navigationController?.parent?.view else {
+            return
+        }
+        let hudView = HudView.hud(inView: mainView, animated: true)
+        hudView.text = "Tagged"
+        afterDelay(0.6) {
+            hudView.hide()
+        }
     }
     
     @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer){
@@ -231,6 +251,11 @@ extension LocationDetailsViewController{
     func format(date: Date) ->String{
         return dateFormatter.string(from: date)
     }
+    
+    func afterDelay(_ seconds: Double, run:  @escaping () -> Void){
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: run)
+    }
+     
 }
 
 extension LocationDetailsViewController: SelectCategory {
