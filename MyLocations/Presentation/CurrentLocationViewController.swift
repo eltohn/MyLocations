@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController {
     
@@ -76,13 +77,23 @@ class CurrentLocationViewController: UIViewController {
     
     var timer: Timer?
     
+    //MARK:- CoreData
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setuoSnapkitCons()
         updateLabels()
+        print(applicationDocumentsDirectory)
     }
+    
+    let applicationDocumentsDirectory: URL = {
+      let paths = FileManager.default.urls(
+        for: .documentDirectory,
+        in: .userDomainMask)
+      return paths[0]
+    }()
 }
 
 //MARK:-  CLLocation methods
@@ -325,6 +336,9 @@ extension CurrentLocationViewController{
         let vc = LocationDetailsViewController()
         vc.coordinate = location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         vc.placemark = placemark
+        // Coredata context being passed
+        vc.managedObjectContext = managedObjectContext
+        print(managedObjectContext)
         navigationController?.pushViewController(vc, animated: true)
     }
     
