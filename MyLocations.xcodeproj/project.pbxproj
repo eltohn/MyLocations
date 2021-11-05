@@ -17,6 +17,8 @@
 		609FD9EC2701C9E400C85124 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 609FD9EB2701C9E400C85124 /* Assets.xcassets */; };
 		609FD9EF2701C9E400C85124 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 609FD9ED2701C9E400C85124 /* LaunchScreen.storyboard */; };
 		609FD9F72701CA3400C85124 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609FD9F62701CA3400C85124 /* MainTabBar.swift */; };
+		60B290A327352C9300753216 /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B290A127352C4900753216 /* Location+CoreDataProperties.swift */; };
+		60B290A427352C9300753216 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B290A027352C4900753216 /* Location+CoreDataClass.swift */; };
 		6C1BBD21FFDF91B0B658CBDF /* Pods_MyLocations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC17E760146A35A42AE427A /* Pods_MyLocations.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 		609FD9EE2701C9E400C85124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		609FD9F02701C9E400C85124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		609FD9F62701CA3400C85124 /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
+		60B290A027352C4900753216 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		60B290A127352C4900753216 /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7FFD7AB77F2D093FE4A42EF6 /* Pods-MyLocations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyLocations.release.xcconfig"; path = "Target Support Files/Pods-MyLocations/Pods-MyLocations.release.xcconfig"; sourceTree = "<group>"; };
 		DAC17E760146A35A42AE427A /* Pods_MyLocations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyLocations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -112,11 +116,22 @@
 				609FD9F62701CA3400C85124 /* MainTabBar.swift */,
 				609FD9EB2701C9E400C85124 /* Assets.xcassets */,
 				609FD9ED2701C9E400C85124 /* LaunchScreen.storyboard */,
-				609FD9F02701C9E400C85124 /* Info.plist */,
+				60B290A227352C4900753216 /* CoreData Classes */,
 				607787EC2733DD0D00579B0B /* Presentation */,
+				609FD9F02701C9E400C85124 /* Info.plist */,
 				607787E92733DCF500579B0B /* MyLocations.xcdatamodeld */,
 			);
 			path = MyLocations;
+			sourceTree = "<group>";
+		};
+		60B290A227352C4900753216 /* CoreData Classes */ = {
+			isa = PBXGroup;
+			children = (
+				60B290A027352C4900753216 /* Location+CoreDataClass.swift */,
+				60B290A127352C4900753216 /* Location+CoreDataProperties.swift */,
+			);
+			name = "CoreData Classes";
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,8 +252,10 @@
 				607787EB2733DCF500579B0B /* MyLocations.xcdatamodeld in Sources */,
 				609FD9E72701C9E300C85124 /* CurrentLocationViewController.swift in Sources */,
 				609FD9E32701C9E300C85124 /* AppDelegate.swift in Sources */,
+				60B290A327352C9300753216 /* Location+CoreDataProperties.swift in Sources */,
 				609BBD59272982A90028B8EF /* LocationDetailsViewController.swift in Sources */,
 				607787E82731871B00579B0B /* HudView.swift in Sources */,
+				60B290A427352C9300753216 /* Location+CoreDataClass.swift in Sources */,
 				607787E627312C2500579B0B /* CategoryPickerTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

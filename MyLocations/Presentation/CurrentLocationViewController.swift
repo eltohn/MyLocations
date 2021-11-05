@@ -338,7 +338,6 @@ extension CurrentLocationViewController{
         vc.placemark = placemark
         // Coredata context being passed
         vc.managedObjectContext = managedObjectContext
-        print(managedObjectContext)
         navigationController?.pushViewController(vc, animated: true)
     }
     
