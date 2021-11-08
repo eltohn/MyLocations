@@ -10,10 +10,21 @@ import SnapKit
 
 class LocationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var tableView = UITableView()
+    private var tableView = UITableView()
     
-    let arr = ["C"]
-    let arr1 = ["B"]
+    private var headerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private var headerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Apple Store"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.alpha = 0.5
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,22 +33,18 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - Table view data source
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Bar"
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(100)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return headerLabel.text
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LocationCells
-        cell.topLabel.text = "Top"
-        cell.bottomLabel.text = "Bottom"
+        cell.topLabel.text = "Apple to Infinity"
+        cell.bottomLabel.text = "2 Infinite Loop, Cupertino"
         return cell
     }
     
@@ -46,37 +53,37 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     }
 }
 
-
-
 class LocationCells: UITableViewCell{
     
     
-     var topLabel: UILabel = {
+    var topLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
     var bottomLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.alpha = 0.5
-        label.font = UIFont.systemFont(ofSize: 13)
-       return label
-   }()
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-     super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(topLabel)
         contentView.addSubview(bottomLabel)
         
         topLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(30)
+            make.top.equalToSuperview().offset(12)
+            make.left.equalToSuperview().offset(20)
         }
         
         bottomLabel.snp.makeConstraints { make in
             make.top.equalTo(topLabel.snp.bottom).offset(10)
-            make.left.equalTo(30)
+            make.left.equalTo(topLabel.snp.left)
+            make.bottom.equalToSuperview().offset(-12)
         }
         
     }
@@ -84,15 +91,13 @@ class LocationCells: UITableViewCell{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
-
 
 
 extension LocationsViewController{
     
     func  setupLocationsUI(){
-    
+        
         tableView.register(LocationCells.self, forCellReuseIdentifier: "cell")
         
         tableView.delegate = self
@@ -102,5 +107,25 @@ extension LocationsViewController{
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(doneButtonPressed))
+    }
+    
+    @objc func doneButtonPressed(){
+        
     }
 }
+
+
+
+
+
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.addSubview(headerLabel)
+//        headerLabel.snp.makeConstraints { make in
+//            make.left.equalTo(20)
+//            make.centerY.equalToSuperview()
+//        }
+//        return headerView
+//    }
