@@ -23,7 +23,7 @@ class MainTabBar: UITabBarController {
         
         viewControllers = [
             makeTabBarController(for: CurrentLocationViewController(), title: "Tag", image: UIImage(named: "Tag")!),
-            makeTabBarController(for: CurrentLocationViewController(), title: "Locations", image:UIImage(named:"Locations")!),
+            makeTabBarController(for: LocationsViewController(), title: "Locations", image:UIImage(named:"Locations")!),
             makeTabBarController(for: CurrentLocationViewController(), title: "Map", image: UIImage(named: "Map")!)
         ]
     }

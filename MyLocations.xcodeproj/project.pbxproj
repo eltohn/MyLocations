@@ -11,6 +11,8 @@
 		607787E627312C2500579B0B /* CategoryPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607787E527312C2500579B0B /* CategoryPickerTableViewController.swift */; };
 		607787E82731871B00579B0B /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607787E72731871B00579B0B /* HudView.swift */; };
 		607787EB2733DCF500579B0B /* MyLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 607787E92733DCF500579B0B /* MyLocations.xcdatamodeld */; };
+		6098EDA0273909CF00903C0F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6098ED9F273909CF00903C0F /* Functions.swift */; };
+		6098EDA227395AC900903C0F /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6098EDA127395AC900903C0F /* LocationsViewController.swift */; };
 		609BBD59272982A90028B8EF /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609BBD58272982A90028B8EF /* LocationDetailsViewController.swift */; };
 		609FD9E32701C9E300C85124 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609FD9E22701C9E300C85124 /* AppDelegate.swift */; };
 		609FD9E72701C9E300C85124 /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609FD9E62701C9E300C85124 /* CurrentLocationViewController.swift */; };
@@ -28,6 +30,8 @@
 		607787E527312C2500579B0B /* CategoryPickerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerTableViewController.swift; sourceTree = "<group>"; };
 		607787E72731871B00579B0B /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		607787EA2733DCF500579B0B /* MyLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLocations.xcdatamodel; sourceTree = "<group>"; };
+		6098ED9F273909CF00903C0F /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		6098EDA127395AC900903C0F /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
 		609BBD58272982A90028B8EF /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		609FD9DF2701C9E300C85124 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		609FD9E22701C9E300C85124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +89,9 @@
 				609FD9E62701C9E300C85124 /* CurrentLocationViewController.swift */,
 				609BBD58272982A90028B8EF /* LocationDetailsViewController.swift */,
 				607787E527312C2500579B0B /* CategoryPickerTableViewController.swift */,
+				6098EDA127395AC900903C0F /* LocationsViewController.swift */,
 				607787E72731871B00579B0B /* HudView.swift */,
+				6098ED9F273909CF00903C0F /* Functions.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -251,12 +257,14 @@
 				609FD9F72701CA3400C85124 /* MainTabBar.swift in Sources */,
 				607787EB2733DCF500579B0B /* MyLocations.xcdatamodeld in Sources */,
 				609FD9E72701C9E300C85124 /* CurrentLocationViewController.swift in Sources */,
+				6098EDA0273909CF00903C0F /* Functions.swift in Sources */,
 				609FD9E32701C9E300C85124 /* AppDelegate.swift in Sources */,
 				60B290A327352C9300753216 /* Location+CoreDataProperties.swift in Sources */,
 				609BBD59272982A90028B8EF /* LocationDetailsViewController.swift in Sources */,
 				607787E82731871B00579B0B /* HudView.swift in Sources */,
 				60B290A427352C9300753216 /* Location+CoreDataClass.swift in Sources */,
 				607787E627312C2500579B0B /* CategoryPickerTableViewController.swift in Sources */,
+				6098EDA227395AC900903C0F /* LocationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,15 +8,15 @@
 import UIKit
 import SnapKit
 
-protocol SelectCategory: AnyObject {
-    func didSelecctCategory(category: String)
+ 
+protocol CategoryType: AnyObject {
+    func categotyCosen(category: String)
 }
-
 
 class CategoryPickerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    weak var delegate: CategoryType?
     
-    weak var delegate: SelectCategory?
     let categoryTableView = UITableView()
     var selectedCategoryName = ""
     let categories = [
@@ -42,7 +42,7 @@ class CategoryPickerViewController: UIViewController, UITableViewDelegate, UITab
                 selectedIndexPath = IndexPath(row: i, section: 0)
                 break
             } }
-       setupUI()
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +51,7 @@ class CategoryPickerViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // MARK: - Table View Delegates
-     func tableView(_ tableView: UITableView,numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
     
@@ -77,7 +77,7 @@ class CategoryPickerViewController: UIViewController, UITableViewDelegate, UITab
                 oldCell.accessoryType = .none
             }
             
-            delegate?.didSelecctCategory(category: categories[indexPath.row])
+            delegate?.categotyCosen(category: categories[indexPath.row])
             selectedIndexPath = indexPath
         }
     }

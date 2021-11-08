@@ -59,15 +59,15 @@ class HudView: UIView {
             initialSpringVelocity: 0.5,
             options: [],
             animations: {
-              self.alpha = 1
-              self.transform = CGAffineTransform.identity
+                self.alpha = 1
+                self.transform = CGAffineTransform.identity
             }, completion: nil)
       }
     }
     
     func hide() {
-      superview?.isUserInteractionEnabled = true
-      removeFromSuperview()
+        superview?.isUserInteractionEnabled = true
+        removeFromSuperview()
     }
 }
 

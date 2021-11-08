@@ -239,7 +239,7 @@ extension LocationDetailsViewController{
                 self.navigationController?.popViewController(animated: true)
             }
         } catch { // 4
-            fatalError("Error: \(error)")
+            fatalCoreDataError(error)
         }
     }
     
@@ -280,8 +280,9 @@ extension LocationDetailsViewController{
      
 }
 
-extension LocationDetailsViewController: SelectCategory {
-    func didSelecctCategory(category: String) {
+extension LocationDetailsViewController: CategoryType {
+    func categotyCosen(category: String) {
         detailViewLabel.text = category
+        categoryName = category
     }
 }

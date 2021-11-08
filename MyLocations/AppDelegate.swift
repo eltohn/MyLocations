@@ -10,7 +10,7 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let controller = navController?.viewControllers.first as? CurrentLocationViewController
             controller?.managedObjectContext = managedObjectContext
         }
-        
+        listenForFatalCoreDataNotifications()
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
@@ -31,8 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-            self.saveContext()
+        self.saveContext()
     }
+    
     
     //MARK:- COREDATA
     
@@ -62,8 +63,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    
+    
+    
+    //MARK:- NOTIFICATIONs
+    
+    func listenForFatalCoreDataNotifications() {
+        // 1
+        NotificationCenter.default.addObserver(
+            forName: dataSaveFailedNotification,
+            object: nil,
+            queue: OperationQueue.main
+        ) { _ in
+            // 2
+            let message = """
+          There was a fatal error in the app and it cannot continue.
+          Press OK to terminate the app. Sorry for the
+          inconvenience.
+    """
+            // 3
+            let alert = UIAlertController(
+                title: "Internal Error",
+                message: message,
+                preferredStyle: .alert)
+            // 4
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                let exception = NSException(
+                    name: NSExceptionName.internalInconsistencyException,
+                    reason: "Fatal Core Data error",
+                    userInfo: nil)
+                exception.raise()
+            }
+            alert.addAction(action)
+            
+            // 5
+            let tabController = self.window!.rootViewController!
+            tabController.present(
+                alert,
+                animated: true,
+                completion: nil)
+        }
+    }
 }
-
-
-
-// /Users/elbekshaykulov/Library/Developer/CoreSimulator/Devices/3F08C8C8-2581-41FA-8BC8-59DAC163965F/data/Containers/Data/Application/17F70097-C25D-4D5F-90D3-F4F78F30E33B/
