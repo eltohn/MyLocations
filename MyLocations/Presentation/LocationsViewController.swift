@@ -28,6 +28,7 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     }()
     
     var locations = [Location]()
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,26 +62,53 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LocationCells
-        cell.topLabel.text = "Apple to Infinity"
-        cell.bottomLabel.text = "2 Infinite Loop, Cupertino"
-        return cell
-    }
+        let location = locations[indexPath.row]
+        
+        if location.locationDescription == ""{
+            cell.descriptionLabel.text = "No Description"
+        }else{
+            cell.descriptionLabel.text = location.locationDescription
+        }
+
+        if let placemark = location.placemark{
+            var text = ""
+            if let tmp = placemark.subThoroughfare {
+                text += tmp + " "
+            }
+            if let tmp = placemark.thoroughfare {
+                text += tmp + ", "
+            }
+            if let tmp = placemark.locality {
+                text += tmp
+            }
+            cell.placemarkLabel.text = text
+        } else {
+            cell.placemarkLabel.text = ""
+        }
+        return cell }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return locations.count
     }
 }
+
+
+
+
+
+
+//MARK:- CELL CLASS
 
 class LocationCells: UITableViewCell{
     
     
-    var topLabel: UILabel = {
+    var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
-    var bottomLabel: UILabel = {
+    var placemarkLabel: UILabel = {
         let label = UILabel()
         label.alpha = 0.5
         label.font = UIFont.systemFont(ofSize: 15)
@@ -90,17 +118,17 @@ class LocationCells: UITableViewCell{
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(topLabel)
-        contentView.addSubview(bottomLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(placemarkLabel)
         
-        topLabel.snp.makeConstraints { make in
+        descriptionLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.left.equalToSuperview().offset(20)
         }
         
-        bottomLabel.snp.makeConstraints { make in
-            make.top.equalTo(topLabel.snp.bottom).offset(10)
-            make.left.equalTo(topLabel.snp.left)
+        placemarkLabel.snp.makeConstraints { make in
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            make.left.equalTo(descriptionLabel.snp.left)
             make.bottom.equalToSuperview().offset(-12)
         }
         

@@ -19,9 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController =  MainTabBar()
         
         if let tabBarViewConts = tabBarController.viewControllers {
-            let navController = tabBarViewConts[0] as? UINavigationController
+            var navController = tabBarViewConts[0] as? UINavigationController
             let controller = navController?.viewControllers.first as? CurrentLocationViewController
             controller?.managedObjectContext = managedObjectContext
+            
+            // Second tab
+            navController = tabBarViewConts[1] as? UINavigationController
+            let controller1 = navController?.viewControllers.first as? LocationsViewController
+            controller1?.managedObjectContext = managedObjectContext
         }
         listenForFatalCoreDataNotifications()
         window?.rootViewController = tabBarController
