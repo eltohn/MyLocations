@@ -10,7 +10,7 @@ import SnapKit
 
  
 protocol CategoryType: AnyObject {
-    func categotyCosen(category: String)
+    func didChoseCategoryName(category: String)
 }
 
 class CategoryPickerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -77,7 +77,7 @@ class CategoryPickerViewController: UIViewController, UITableViewDelegate, UITab
                 oldCell.accessoryType = .none
             }
             
-            delegate?.categotyCosen(category: categories[indexPath.row])
+            delegate?.didChoseCategoryName(category: categories[indexPath.row])
             selectedIndexPath = indexPath
         }
     }

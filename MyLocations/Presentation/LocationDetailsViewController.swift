@@ -280,9 +280,14 @@ extension LocationDetailsViewController{
      
 }
 
-extension LocationDetailsViewController: CategoryType {
-    func categotyCosen(category: String) {
+ 
+
+
+extension LocationDetailsViewController: CategoryType{
+    func didChoseCategoryName(category: String) {
         detailViewLabel.text = category
         categoryName = category
+        
+        print(category)
     }
 }

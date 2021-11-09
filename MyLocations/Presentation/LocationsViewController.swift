@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class LocationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -26,9 +27,26 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         return label
     }()
     
+    var locations = [Location]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationsUI()
+        
+        let fetchRequest = NSFetchRequest<Location>()
+        
+        let entity = Location.entity()
+        fetchRequest.entity = entity
+        
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do{
+            locations = try managedObjectContext.fetch(fetchRequest)
+        }catch{
+            fatalCoreDataError(error)
+        }
+        
     }
     
     // MARK: - Table view data source
